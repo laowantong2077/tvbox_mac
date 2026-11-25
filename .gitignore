@@ -1,0 +1,30 @@
+node_modules/
+release/
+dist/
+data/
+*.log
+.DS_Store
+target
+data-rust
+src-tauri/gen/schemas
+src-tauri/gen/android/.gradle
+src-tauri/gen/android/app/build
+src-tauri/gen/android/build
+src-tauri/gen/apple/build
+
+# 环境与密钥（防止误提交）
+.env
+.env.*
+!.env.example
+*.pem
+*.p12
+*.key
+*.local
+
+# 编辑器 / 系统
+.idea/
+.vscode/
+!.vscode/extensions.json
+
+# 本地安卓签名密钥（勿提交）
+.android-signing/

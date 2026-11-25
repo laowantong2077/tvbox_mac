@@ -1,0 +1,17 @@
+[package]
+name = "suixinkan"
+version = "1.0.0"
+edition = "2021"
+description = "随心看"
+
+[lib]
+name = "suixinkan_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+sxk_core = { path = "../core" }
+serde_json = "1"

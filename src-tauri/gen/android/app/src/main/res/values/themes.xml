@@ -1,0 +1,10 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- 随心看深色主题：系统栏与页面底色一致，内容不再延伸到状态栏/手势条下方 -->
+    <style name="Theme.suixinkan" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="android:windowBackground">#FF0B0D12</item>
+        <item name="android:statusBarColor">#FF0B0D12</item>
+        <item name="android:navigationBarColor">#FF0B0D12</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="27">false</item>
+    </style>
+</resources>

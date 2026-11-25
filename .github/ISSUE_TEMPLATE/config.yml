@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 安全漏洞
+    url: https://github.com/laowantong2077/tvbox_mac/security/advisories/new
+    about: 请勿公开提交安全漏洞，使用私密渠道反馈。
+  - name: TVBox 生态说明
+    url: https://github.com/noimank/tvbox
+    about: 关于 TVBox / 影视仓 配置生态的通用问题请先查阅相关文档。

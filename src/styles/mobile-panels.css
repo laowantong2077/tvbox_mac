@@ -1,0 +1,203 @@
+/* =========================================================
+ * 移动端面板类页面：匹配抽屉 MatchSheet / 源管理 / 收藏 / 记录 / 设置 / 网络 / 我的
+ * 仅在 html.is-compact 下生效
+ * ========================================================= */
+
+/* ---------- MatchSheet：改为从底部升起的抽屉 ---------- */
+html.is-compact .msheet-mask {
+  align-items: flex-end;
+  padding: calc(var(--m-safe-top) + 24px) 0 0;
+}
+html.is-compact .msheet {
+  width: 100%;
+  height: 88%;
+  flex-direction: column;
+  border-radius: 20px 20px 0 0;
+  border-bottom: none;
+  animation: m-drawer-up 0.32s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+/* 顶部抓手：提示可下拉关闭的抽屉形态 */
+html.is-compact .msheet::before {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  width: 40px;
+  height: 4px;
+  margin-left: -20px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.28);
+  z-index: 4;
+}
+html.is-compact .msheet-close {
+  top: 12px;
+  right: 10px;
+  width: var(--m-touch);
+  height: var(--m-touch);
+}
+/* 左栏（海报 + 豆瓣信息）改为顶部横向摘要，海报缩小并与文字并排 */
+html.is-compact .msheet-left {
+  width: auto;
+  flex-shrink: 0;
+  max-height: 34%;
+  padding: 24px 60px 12px var(--m-gutter);
+  border-right: none;
+  border-bottom: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: 84px minmax(0, 1fr);
+  column-gap: 14px;
+  align-content: start;
+}
+html.is-compact .msheet-left > :not(.msheet-poster) {
+  grid-column: 2;
+}
+html.is-compact .msheet-poster {
+  width: 84px;
+  grid-row: 1 / span 6;
+  align-self: start;
+  border-radius: 10px;
+}
+html.is-compact .msheet-name {
+  margin-top: 0;
+  font-size: 18px;
+}
+html.is-compact .msheet-intro {
+  display: none;
+}
+html.is-compact .msheet-head {
+  padding: 12px var(--m-gutter) 10px;
+}
+html.is-compact .msheet-title {
+  font-size: 16px;
+}
+html.is-compact .msheet-bar {
+  margin: 0 var(--m-gutter);
+}
+html.is-compact .msheet-list {
+  padding: 12px calc(var(--m-gutter) - 4px) calc(16px + var(--m-safe-bottom));
+  gap: 8px;
+}
+html.is-compact .mhit {
+  gap: 10px;
+  padding: 10px;
+}
+html.is-compact .mhit-go {
+  display: none;
+}
+@keyframes m-drawer-up {
+  from {
+    transform: translateY(100%);
+  }
+}
+
+/* ---------- 源管理 ---------- */
+html.is-compact .add-source {
+  padding: 16px;
+}
+html.is-compact .add-source-row {
+  flex-direction: column;
+}
+html.is-compact .add-source-row .input,
+html.is-compact .add-source-row .btn {
+  flex: none;
+  height: var(--m-touch);
+}
+/* 名称输入框在桌面有内联 maxWidth，小屏需铺满 */
+html.is-compact .add-source-row .input {
+  width: 100%;
+  max-width: none !important;
+}
+html.is-compact .source-item {
+  padding: 14px;
+}
+html.is-compact .source-row {
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 10px 12px;
+}
+html.is-compact .source-dot {
+  margin-top: 6px;
+}
+html.is-compact .source-main {
+  flex-basis: calc(100% - 24px);
+}
+html.is-compact .source-actions {
+  width: 100%;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  margin-top: -6px;
+}
+html.is-compact .source-url,
+html.is-compact .wh-url {
+  white-space: normal;
+  word-break: break-all;
+}
+html.is-compact .wh-item {
+  min-height: var(--m-touch);
+}
+
+/* ---------- 收藏：触屏没有悬停，删除按钮常显 ---------- */
+html.is-compact .fav-remove {
+  display: flex;
+  width: 30px;
+  height: 30px;
+}
+
+/* ---------- 观看记录：缩略图缩小，信息区可换行 ---------- */
+html.is-compact .hist-item {
+  gap: 12px;
+  padding: 10px;
+}
+html.is-compact .hist-poster {
+  width: 120px;
+}
+html.is-compact .hist-info {
+  min-width: 0;
+}
+html.is-compact .hist-name {
+  font-size: 14px;
+}
+
+/* ---------- 设置 ---------- */
+html.is-compact .settings-group {
+  padding: 2px 14px;
+}
+html.is-compact .settings-row {
+  flex-wrap: wrap;
+  gap: 10px 14px;
+  padding: 14px 0;
+}
+html.is-compact .settings-row > :first-child {
+  flex: 1 1 200px;
+  min-width: 0;
+}
+html.is-compact .about-card {
+  flex-direction: column;
+  text-align: center;
+}
+
+/* ---------- 网络面板：网格降列、输入框铺满 ---------- */
+html.is-compact .net-modes {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+html.is-compact .net-env {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+html.is-compact .net-route-grid {
+  grid-template-columns: minmax(0, 1fr);
+}
+html.is-compact .net-select,
+html.is-compact .net-input {
+  width: 100%;
+  min-width: 0;
+  max-width: none;
+}
+html.is-compact .net-section-head,
+html.is-compact .net-card-head,
+html.is-compact .net-save-bar,
+html.is-compact .net-options,
+html.is-compact .net-host-row {
+  flex-wrap: wrap;
+  gap: 10px;
+}

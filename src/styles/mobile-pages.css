@@ -1,0 +1,279 @@
+/* =========================================================
+ * 移动端页面适配：推荐轮播 / 横向行 / 海报网格 / 热播 / 搜索 / 片库 / 详情
+ * 仅在 html.is-compact 下生效；面板类页面见 mobile-panels.css
+ * ========================================================= */
+@import './mobile-panels.css';
+@import './mobile-widgets.css';
+
+/* ---------- 推荐页 Hero 轮播：竖向构图，海报缩为右侧小图 ---------- */
+html.is-compact .hero {
+  height: 400px;
+}
+html.is-compact .hero-content {
+  padding: 28px var(--m-gutter) 74px;
+  align-items: flex-end;
+  gap: 14px;
+}
+html.is-compact .hero-shade {
+  background: linear-gradient(180deg, rgba(11, 13, 18, 0.2) 0%, rgba(11, 13, 18, 0.65) 55%, var(--bg) 100%);
+}
+html.is-compact .hero-title {
+  margin-top: 10px;
+  font-size: 28px;
+  letter-spacing: 0.5px;
+}
+html.is-compact .hero-meta {
+  flex-wrap: wrap;
+  row-gap: 4px;
+  font-size: 12.5px;
+}
+html.is-compact .hero-meta-item,
+html.is-compact .hero-score {
+  white-space: nowrap;
+}
+html.is-compact .hero-intro {
+  margin-top: 10px;
+  font-size: 13px;
+  line-height: 1.6;
+  -webkit-line-clamp: 2;
+}
+html.is-compact .hero-cast {
+  display: none;
+}
+html.is-compact .hero-actions {
+  margin-top: 16px;
+  gap: 10px;
+}
+html.is-compact .hero-actions .btn {
+  height: 44px;
+  padding: 0 18px;
+}
+html.is-compact .hero-poster {
+  width: 108px;
+  border-radius: 12px;
+  transform: none;
+  align-self: flex-end;
+}
+html.is-compact .hero-arrow {
+  display: none;
+}
+html.is-compact .hero-dots {
+  left: var(--m-gutter);
+  bottom: 52px;
+}
+html.is-compact .discover-rows {
+  margin-top: -36px;
+  padding-bottom: 24px;
+}
+html.is-compact .discover-rows.is-fallback .dnotice {
+  margin: 0 var(--m-gutter) 8px;
+}
+
+/* ---------- 横向滚动行：左右留白缩为 gutter，卡片缩小 ---------- */
+html.is-compact .mrow {
+  padding: 10px 0 2px;
+}
+html.is-compact .mrow-head {
+  padding: 0 calc(var(--m-gutter) - 4px) 6px var(--m-gutter);
+  align-items: center;
+}
+html.is-compact .mrow-titles {
+  min-width: 0;
+  gap: 8px;
+}
+html.is-compact .mrow-title {
+  font-size: 17px;
+  white-space: nowrap;
+}
+html.is-compact .mrow-sub {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 12px;
+}
+html.is-compact .mrow-more {
+  flex-shrink: 0;
+  min-height: var(--m-touch);
+  padding: 0 4px 0 10px;
+}
+html.is-compact .mrow-track {
+  gap: 12px;
+  padding: 6px var(--m-gutter) 10px;
+  scroll-padding: 0 var(--m-gutter);
+}
+html.is-compact .mrow-track > * {
+  flex-basis: 116px;
+}
+html.is-compact .mrow-vcard {
+  width: 116px;
+}
+html.is-compact .mrow-arrow,
+html.is-compact .mrow-body::before,
+html.is-compact .mrow-body::after {
+  display: none;
+}
+
+/* ---------- 海报网格：固定 3 列（窄于 360px 时 2 列） ---------- */
+html.is-compact .grid,
+html.is-compact .dgrid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px 10px;
+}
+@media (max-width: 359px) {
+  html.is-compact .grid,
+  html.is-compact .dgrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+html.is-compact .dcard-title,
+html.is-compact .vcard-title {
+  font-size: 13px;
+}
+html.is-compact .dcard-sub,
+html.is-compact .vcard-sub {
+  font-size: 11px;
+}
+/* 触屏没有悬停：隐藏悬停浮层，避免首次点击只触发 hover */
+html.is-compact .dcard-hover,
+html.is-compact .vcard-hover {
+  display: none;
+}
+
+/* ---------- 热播页 ---------- */
+html.is-compact .hot-head-inner {
+  padding: 12px var(--m-gutter) 10px;
+}
+html.is-compact .hot-title {
+  font-size: 22px;
+}
+html.is-compact .hot-desc {
+  font-size: 12px;
+}
+html.is-compact .hot-controls {
+  margin-top: 12px;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+}
+html.is-compact .hot-chips {
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  margin: 0 calc(-1 * var(--m-gutter));
+  padding: 0 var(--m-gutter);
+  scrollbar-width: none;
+}
+html.is-compact .seg {
+  align-self: flex-start;
+}
+html.is-compact .seg-item {
+  height: 32px;
+  padding: 0 14px;
+}
+html.is-compact .hot-body {
+  padding-top: 14px;
+}
+/* ---------- 搜索页 ---------- */
+html.is-compact .search-hero {
+  padding: 18px var(--m-gutter) 16px;
+}
+html.is-compact .search-brand {
+  display: none;
+}
+html.is-compact .search-box {
+  height: 50px;
+  padding: 0 5px 0 14px;
+  border-radius: 14px;
+}
+html.is-compact .search-clear {
+  width: 36px;
+  height: 36px;
+}
+html.is-compact .search-go {
+  height: 40px;
+  padding: 0 16px;
+}
+html.is-compact .search-hint {
+  margin-top: 10px;
+  font-size: 12px;
+}
+html.is-compact .ph-cards {
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+html.is-compact .ph-card {
+  padding: 14px 16px;
+}
+html.is-compact .result-bar {
+  flex-wrap: wrap;
+  gap: 8px;
+}
+html.is-compact .filter-chips {
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  max-width: 100%;
+  scrollbar-width: none;
+}
+
+/* ---------- 片库 ---------- */
+html.is-compact .browse-head {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+  padding: 10px var(--m-gutter);
+}
+html.is-compact .site-picker .select {
+  width: 100%;
+  height: var(--m-touch);
+}
+html.is-compact .browse-body {
+  padding-top: 14px;
+}
+
+/* ---------- 详情页：海报与信息上下排列，选集 3 列 ---------- */
+html.is-compact .detail-topbar {
+  display: none;
+}
+html.is-compact .detail-hero {
+  gap: 14px;
+  padding: 16px var(--m-gutter) 18px;
+}
+html.is-compact .detail-poster {
+  width: 112px;
+  align-self: flex-start;
+}
+html.is-compact .detail-title {
+  font-size: 20px;
+}
+html.is-compact .detail-meta {
+  gap: 6px;
+  margin: 10px 0;
+}
+html.is-compact .detail-content {
+  font-size: 13px;
+  max-height: 96px;
+}
+html.is-compact .detail-actions {
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+}
+html.is-compact .detail-actions .btn {
+  flex: 1 1 auto;
+  height: var(--m-touch);
+  padding: 0 16px;
+}
+html.is-compact .detail-player {
+  padding: 4px var(--m-gutter) 32px;
+}
+html.is-compact .source-tabs {
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+html.is-compact .ep-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+html.is-compact .ep-btn {
+  height: var(--m-touch);
+}

@@ -1,0 +1,209 @@
+/* =========================================================
+ * 移动端外壳：底部标签栏 / 精简顶栏 / 安全区 / 触控基线
+ * 仅在 html.is-compact（窄屏 ≤ 760px 或 Tauri 移动端）下生效，桌面端不受影响
+ * ========================================================= */
+html.is-compact {
+  --m-gutter: 16px;
+  --m-tabbar-h: 56px;
+  --m-topbar-h: 48px;
+  --m-touch: 44px;
+  --m-safe-top: env(safe-area-inset-top, 0px);
+  --m-safe-bottom: env(safe-area-inset-bottom, 0px);
+  --m-safe-left: env(safe-area-inset-left, 0px);
+  --m-safe-right: env(safe-area-inset-right, 0px);
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+/* ---------- 触控基线：去除点击高亮、双击缩放、长按菜单与误选中 ---------- */
+html.is-compact body {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+  overscroll-behavior: none;
+}
+html.is-compact button,
+html.is-compact a,
+html.is-compact [role='button'],
+html.is-compact .app-content {
+  touch-action: manipulation;
+}
+/* 输入框仍允许选择文字；字号 ≥ 16px 避免 iOS 聚焦自动放大 */
+html.is-compact input,
+html.is-compact textarea,
+html.is-compact select {
+  -webkit-user-select: text;
+  user-select: text;
+  font-size: 16px;
+}
+html.is-compact img {
+  -webkit-user-drag: none;
+}
+html.is-compact ::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+/* ---------- 整体布局：去掉侧栏，主区纵向 顶栏 + 内容 + 标签栏 ---------- */
+html.is-compact .app {
+  height: 100vh;
+  height: 100dvh;
+  flex-direction: column;
+}
+html.is-compact .app-main {
+  height: 100%;
+  min-height: 0;
+}
+html.is-compact .app-content {
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
+}
+
+/* ---------- 精简顶栏：返回 + 标题 + 网络快捷切换 ---------- */
+html.is-compact .topbar {
+  height: calc(var(--m-topbar-h) + var(--m-safe-top));
+  padding: var(--m-safe-top) calc(8px + var(--m-safe-right)) 0 calc(var(--m-gutter) + var(--m-safe-left));
+  gap: 8px;
+  background: rgba(11, 13, 18, 0.86);
+  backdrop-filter: blur(18px) saturate(1.3);
+  -webkit-backdrop-filter: blur(18px) saturate(1.3);
+  position: relative;
+  z-index: 30;
+}
+html.is-compact .topbar-left {
+  flex: 1;
+  min-width: 0;
+  gap: 4px;
+}
+html.is-compact .topbar-back {
+  width: var(--m-touch);
+  height: var(--m-touch);
+  margin-left: -12px;
+  flex-shrink: 0;
+}
+html.is-compact .topbar-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+html.is-compact .topbar-src,
+html.is-compact .topbar-refresh {
+  display: none;
+}
+html.is-compact .topbar-right {
+  flex-shrink: 0;
+}
+
+/* 网络快捷切换收纳为紧凑胶囊；下拉菜单不超出屏幕 */
+html.is-compact .net-qs-btn {
+  height: 34px;
+  min-width: var(--m-touch);
+  padding: 0 10px;
+  gap: 6px;
+}
+html.is-compact .net-qs-loc {
+  display: none;
+}
+html.is-compact .net-qs-menu {
+  position: fixed;
+  top: calc(var(--m-topbar-h) + var(--m-safe-top) + 4px);
+  left: calc(12px + var(--m-safe-left));
+  right: calc(12px + var(--m-safe-right));
+  width: auto;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+html.is-compact .net-qs-item {
+  min-height: 52px;
+  padding: 10px 12px;
+}
+
+/* ---------- 底部标签栏 ---------- */
+.m-tabbar {
+  flex-shrink: 0;
+  display: flex;
+  height: calc(var(--m-tabbar-h) + var(--m-safe-bottom));
+  padding: 0 var(--m-safe-right) var(--m-safe-bottom) var(--m-safe-left);
+  background: rgba(13, 15, 21, 0.92);
+  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  border-top: 1px solid var(--border);
+  position: relative;
+  z-index: 30;
+}
+.m-tab {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  transition: color 0.18s ease;
+}
+.m-tab-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 28px;
+  border-radius: 14px;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+.m-tab:active .m-tab-icon {
+  transform: scale(0.9);
+}
+.m-tab.active {
+  color: #fff;
+}
+.m-tab.active .m-tab-icon {
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+.m-tab.active .m-tab-label {
+  font-weight: 650;
+}
+
+/* ---------- 通用组件触控尺寸 ---------- */
+html.is-compact .page-inner {
+  padding: 16px calc(var(--m-gutter) + var(--m-safe-right)) 32px calc(var(--m-gutter) + var(--m-safe-left));
+}
+html.is-compact .page-head {
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+html.is-compact .page-title {
+  font-size: 22px;
+}
+html.is-compact .icon-btn {
+  min-width: 40px;
+  min-height: 40px;
+}
+html.is-compact .btn {
+  min-height: 40px;
+}
+html.is-compact .btn-sm {
+  min-height: 36px;
+}
+html.is-compact .chip {
+  min-height: 34px;
+  flex-shrink: 0;
+}
+html.is-compact .toast-wrap,
+html.is-compact .toasts {
+  bottom: calc(var(--m-tabbar-h) + var(--m-safe-bottom) + 12px);
+}

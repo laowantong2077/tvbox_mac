@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!-- iOS 可执行文件名需为 ASCII（中文名会令 NSBundle 查找崩溃，见 tauri.ios.conf.json），桌面显示名用中文 -->
+	<key>CFBundleDisplayName</key>
+	<string>随心看</string>
+	<!-- 前端页面由 App 内置的 127.0.0.1 本地服务提供，需要放行本地明文 HTTP -->
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsLocalNetworking</key>
+		<true/>
+	</dict>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>audio</string>
+	</array>
+</dict>
+</plist>

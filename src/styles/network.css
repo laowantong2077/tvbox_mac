@@ -1,0 +1,635 @@
+/* ================= 网络与代理（设置页分区 + 顶部快捷切换） ================= */
+
+.net-section {
+  margin-bottom: 26px;
+}
+.net-section-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+.net-section-title {
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+.net-section-head .settings-desc {
+  margin-top: 6px;
+}
+.net-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 30px;
+  padding: 0 12px;
+  border-radius: 999px;
+  font-size: 12.5px;
+  color: var(--text-2);
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+.net-status.warn {
+  color: var(--amber);
+  border-color: rgba(255, 194, 75, 0.35);
+  background: rgba(255, 194, 75, 0.08);
+}
+.net-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 0 3px rgba(61, 220, 151, 0.18);
+}
+
+.net-card {
+  padding: 18px 20px;
+  margin-bottom: 16px;
+}
+.net-loading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--muted);
+  font-size: 13px;
+}
+.net-card-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+.net-card-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14.5px;
+  font-weight: 600;
+}
+.net-card-title svg {
+  color: var(--accent);
+}
+.net-head-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+.net-count {
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: var(--surface-3);
+  color: var(--text-2);
+  font-size: 11px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ---------- 模式卡片 ---------- */
+.net-modes {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+@media (max-width: 1100px) {
+  .net-modes {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+.net-mode {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 16px 16px 15px;
+  min-height: 138px;
+  text-align: left;
+  border-radius: 12px;
+  border: 1px solid var(--border-strong);
+  background: var(--surface-2);
+  color: var(--text);
+  transition: border-color 0.15s ease, background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+}
+.net-mode:hover {
+  border-color: rgba(255, 255, 255, 0.22);
+  transform: translateY(-1px);
+}
+.net-mode:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.net-mode.active {
+  border-color: rgba(255, 84, 112, 0.65);
+  background: linear-gradient(160deg, rgba(255, 84, 112, 0.14), rgba(255, 122, 89, 0.04) 60%), var(--surface-2);
+  box-shadow: 0 10px 28px rgba(255, 84, 112, 0.16);
+}
+.net-mode-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface-3);
+  color: var(--text-2);
+  transition: all 0.15s ease;
+}
+.net-mode.active .net-mode-icon {
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: #fff;
+  box-shadow: 0 6px 16px rgba(255, 84, 112, 0.35);
+}
+.net-mode-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14.5px;
+  font-weight: 650;
+}
+.net-mode-cur {
+  font-size: 10.5px;
+  font-weight: 600;
+  color: var(--green);
+  background: rgba(61, 220, 151, 0.14);
+  padding: 1px 6px;
+  border-radius: 5px;
+}
+.net-mode-desc {
+  font-size: 12px;
+  line-height: 1.55;
+  color: var(--muted);
+}
+.net-mode-rec {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-size: 10.5px;
+  font-weight: 700;
+  color: #fff;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  box-shadow: 0 4px 12px rgba(255, 84, 112, 0.35);
+}
+.net-mode-rec.inline {
+  position: static;
+  margin-left: 6px;
+  padding: 1px 6px;
+  box-shadow: none;
+}
+.net-mode-check {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  opacity: 0;
+  transform: scale(0.6);
+  transition: all 0.15s ease;
+}
+.net-mode.active .net-mode-check {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ---------- 细项设置 ---------- */
+.net-options {
+  margin-top: 8px;
+}
+.net-options .settings-row {
+  padding: 15px 0;
+}
+.net-select {
+  min-width: 260px;
+  max-width: 340px;
+  cursor: pointer;
+}
+.net-input {
+  width: 320px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 13px;
+}
+.net-input-grow {
+  flex: 1;
+  min-width: 0;
+  font-size: 13px;
+}
+.net-save-bar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+}
+.net-dirty {
+  margin-right: auto;
+  font-size: 12.5px;
+  color: var(--amber);
+}
+
+/* ---------- 徽标 ---------- */
+.net-badge {
+  display: inline-flex;
+  align-items: center;
+  height: 21px;
+  padding: 0 8px;
+  border-radius: 6px;
+  font-size: 11.5px;
+  font-weight: 650;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.net-badge-ok {
+  color: var(--green);
+  background: rgba(61, 220, 151, 0.14);
+}
+.net-badge-fail {
+  color: #ff6b81;
+  background: rgba(255, 84, 112, 0.15);
+}
+.net-badge-warn {
+  color: var(--amber);
+  background: rgba(255, 194, 75, 0.14);
+}
+.net-badge-idle {
+  color: var(--muted);
+  background: var(--surface-3);
+}
+
+/* ---------- 诊断 ---------- */
+.net-diag-bar {
+  display: flex;
+  gap: 10px;
+}
+.net-env {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 14px;
+}
+.net-env-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  font-size: 12.5px;
+}
+.net-env-item svg {
+  color: var(--text-2);
+  flex-shrink: 0;
+}
+.net-env-item b {
+  font-weight: 600;
+  margin-left: auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.net-test-url {
+  margin-top: 12px;
+  font-size: 12px;
+  color: var(--muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+.net-route-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 12px;
+  margin-top: 10px;
+}
+.net-route-card {
+  position: relative;
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: var(--surface-2);
+  border: 1px solid var(--border-strong);
+  overflow: hidden;
+}
+.net-route-card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--surface-3);
+}
+.net-route-card.tone-ok::before {
+  background: var(--green);
+}
+.net-route-card.tone-fail::before {
+  background: var(--accent);
+}
+.net-route-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.net-route-name {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13.5px;
+  font-weight: 600;
+}
+.net-egress-ip {
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  font-variant-numeric: tabular-nums;
+}
+.net-egress-loc {
+  margin-top: 2px;
+  font-size: 12.5px;
+  color: var(--text-2);
+}
+.net-egress-alt {
+  margin-top: 6px;
+  font-size: 11.5px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+.net-probe {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--border-strong);
+  font-size: 12px;
+}
+.net-probe-ms,
+.net-route-ms {
+  font-size: 12px;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+.net-route-ms {
+  margin-top: 8px;
+}
+.net-diag-err {
+  width: 100%;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #ff8a9c;
+  word-break: break-all;
+}
+
+/* ---------- 域名列表 ---------- */
+.net-host-list {
+  max-height: 340px;
+  overflow-y: auto;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+}
+.net-host-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+}
+.net-host-row:last-child {
+  border-bottom: none;
+}
+.net-host-row:hover {
+  background: rgba(255, 255, 255, 0.025);
+}
+.net-host-main {
+  flex: 1;
+  min-width: 0;
+}
+.net-host-name {
+  font-size: 13px;
+  font-weight: 550;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.net-host-sub {
+  margin-top: 3px;
+  font-size: 11.5px;
+  color: var(--muted);
+}
+.net-host-route {
+  font-size: 11.5px;
+  color: var(--text-2);
+  padding: 2px 8px;
+  border-radius: 6px;
+  border: 1px solid var(--border-strong);
+}
+.net-empty {
+  padding: 22px;
+  text-align: center;
+  font-size: 13px;
+  color: var(--muted);
+  border-radius: 10px;
+  border: 1px dashed var(--border-strong);
+}
+.net-rules {
+  margin-top: 12px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  color: var(--text-2);
+  font-size: 12px;
+  line-height: 1.7;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  overflow-x: auto;
+}
+.net-card code {
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: var(--surface-3);
+  font-size: 11.5px;
+}
+
+.net-spinner {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  border-top-color: #fff;
+  animation: net-spin 0.8s linear infinite;
+}
+@keyframes net-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ---------- 顶部快捷切换 ---------- */
+.net-qs {
+  position: relative;
+  -webkit-app-region: no-drag;
+}
+.net-qs-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  height: 32px;
+  padding: 0 10px 0 11px;
+  border-radius: 999px;
+  border: 1px solid var(--border-strong);
+  background: var(--surface-2);
+  color: var(--text);
+  font-size: 12.5px;
+  transition: all 0.15s ease;
+}
+.net-qs-btn:hover,
+.net-qs-btn.open {
+  background: var(--surface-3);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+.net-qs-btn svg {
+  color: var(--muted);
+}
+.net-qs-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--muted);
+}
+.net-qs-dot.mode-smart {
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  box-shadow: 0 0 0 3px rgba(255, 84, 112, 0.2);
+}
+.net-qs-dot.mode-direct {
+  background: var(--green);
+  box-shadow: 0 0 0 3px rgba(61, 220, 151, 0.18);
+}
+.net-qs-dot.mode-proxy {
+  background: #8fa6ff;
+  box-shadow: 0 0 0 3px rgba(143, 166, 255, 0.2);
+}
+.net-qs-dot.warn {
+  background: var(--amber);
+}
+.net-qs-mode {
+  font-weight: 600;
+}
+.net-qs-loc {
+  color: var(--text-2);
+  padding-left: 7px;
+  border-left: 1px solid var(--border-strong);
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.net-qs-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  z-index: 60;
+  width: 300px;
+  padding: 6px;
+  border-radius: 12px;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  box-shadow: var(--shadow);
+  animation: net-pop 0.14s ease;
+}
+.net-qs-menu.align-right {
+  right: 0;
+}
+.net-qs-menu.align-left {
+  left: 0;
+}
+@keyframes net-pop {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+.net-qs-item {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 10px;
+  border: none;
+  border-radius: 9px;
+  background: transparent;
+  color: var(--text);
+  text-align: left;
+}
+.net-qs-item:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+.net-qs-item.active {
+  background: var(--accent-soft);
+}
+.net-qs-item-icon {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface-3);
+  color: var(--text-2);
+}
+.net-qs-item.active .net-qs-item-icon {
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: #fff;
+}
+.net-qs-item-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.net-qs-item-title {
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+  font-weight: 600;
+}
+.net-qs-item-desc {
+  font-size: 11.5px;
+  line-height: 1.45;
+  color: var(--muted);
+}
+.net-qs-check {
+  color: var(--accent);
+  margin-top: 6px;
+}
+.net-qs-foot {
+  margin: 4px 4px 2px;
+  padding: 8px 6px 4px;
+  border-top: 1px solid var(--border);
+  font-size: 11.5px;
+  color: var(--muted);
+}
+.net-env-item .muted {
+  white-space: nowrap;
+  flex-shrink: 0;
+}

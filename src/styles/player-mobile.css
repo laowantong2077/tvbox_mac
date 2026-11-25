@@ -1,0 +1,192 @@
+/* =========================================================
+ * 播放器移动端：精简控制栏 / 底部抽屉式面板 / 安全区 / 手势浮层 / CSS 伪全屏
+ * 布局类规则仅在 html.is-compact 下生效；手势浮层只在触控时出现，桌面端不受影响
+ * ========================================================= */
+
+/* ---------- 触控：舞台交给手势处理，禁止浏览器滚动 / 缩放 ---------- */
+html.is-compact .sxp {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+html.is-compact .sxp-stage,
+html.is-compact .sxp-progress {
+  touch-action: none;
+}
+html.is-compact .sxp-progress {
+  height: 26px;
+}
+
+/* ---------- 顶栏：避开刘海 / 状态栏 ---------- */
+html.is-compact .sxp-top {
+  padding: calc(8px + var(--m-safe-top)) calc(10px + var(--m-safe-right)) 28px calc(6px + var(--m-safe-left));
+  gap: 6px;
+}
+html.is-compact .sxp-top .sxp-cbtn {
+  width: var(--m-touch);
+  height: var(--m-touch);
+}
+html.is-compact .sxp-title {
+  font-size: 15px;
+}
+html.is-compact .sxp-top-btn {
+  height: 36px;
+}
+
+/* ---------- 底部控制栏：只保留 播放 / 进度 / 时间 / 倍速 / 选集 / 更多 / 全屏 ---------- */
+html.is-compact .sxp-bottom {
+  padding: 36px calc(8px + var(--m-safe-right)) calc(6px + var(--m-safe-bottom)) calc(8px + var(--m-safe-left));
+}
+html.is-compact .sxp-ctrl-row {
+  height: var(--m-touch);
+  gap: 0;
+}
+html.is-compact .sxp-cbtn {
+  width: var(--m-touch);
+  height: var(--m-touch);
+}
+html.is-compact .sxp-cbtn[data-k='prev'],
+html.is-compact .sxp-cbtn[data-k='next'],
+html.is-compact .sxp-cbtn[data-k='sub'],
+html.is-compact .sxp-cbtn[data-k='camera'],
+html.is-compact .sxp-cbtn[data-k='pip'],
+html.is-compact .sxp-volume,
+html.is-compact .sxp-dm-input,
+html.is-compact .sxp-quality-btn {
+  display: none;
+}
+html.is-compact .sxp-time {
+  font-size: 12px;
+  margin: 0 4px;
+}
+html.is-compact .sxp-tbtn {
+  height: 34px;
+  padding: 0 10px;
+}
+/* 触屏无悬停：隐藏按钮气泡提示 */
+html.is-compact .sxp-cbtn[data-tip]::after {
+  display: none;
+}
+
+/* ---------- 面板：设置 / 弹幕 / 快捷键 / 清晰度 改为底部抽屉 ---------- */
+html.is-compact .sxp-settings,
+html.is-compact .sxp-dm-panel,
+html.is-compact .sxp-help,
+html.is-compact .sxp-menu {
+  left: var(--m-safe-left);
+  right: var(--m-safe-right);
+  bottom: 0;
+  width: auto;
+  min-width: 0;
+  max-height: 72%;
+  border-radius: 18px 18px 0 0;
+  padding-bottom: calc(10px + var(--m-safe-bottom));
+  overflow-y: auto;
+  animation: sxp-m-sheet 0.26s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+html.is-compact .sxp-tabs {
+  overflow-x: auto;
+  scrollbar-width: none;
+  flex-shrink: 0;
+}
+html.is-compact .sxp-help-grid {
+  grid-template-columns: 1fr;
+}
+html.is-compact .sxp-drawer {
+  width: min(360px, 86vw);
+  padding-top: var(--m-safe-top);
+  padding-bottom: var(--m-safe-bottom);
+  padding-right: var(--m-safe-right);
+}
+html.is-compact .sxp-osd {
+  top: calc(64px + var(--m-safe-top));
+  max-width: 86vw;
+}
+@keyframes sxp-m-sheet {
+  from {
+    transform: translateY(100%);
+  }
+}
+
+/* ---------- 横屏（矮视口）：压缩上下留白，把画面让出来 ---------- */
+@media (orientation: landscape) and (max-height: 500px) {
+  html.is-compact .sxp-top {
+    padding-top: calc(4px + var(--m-safe-top));
+    padding-bottom: 18px;
+  }
+  html.is-compact .sxp-bottom {
+    padding-top: 22px;
+  }
+  html.is-compact .sxp-settings,
+  html.is-compact .sxp-dm-panel,
+  html.is-compact .sxp-help,
+  html.is-compact .sxp-menu {
+    left: auto;
+    width: min(420px, 60vw);
+    max-height: 86%;
+  }
+}
+
+/* ---------- CSS 伪全屏：原生全屏不可用时铺满可视区域 ---------- */
+.sxp.sxp-pseudo-full {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  z-index: 3000;
+  background: #000;
+}
+
+/* ---------- 手势浮层 ---------- */
+.sxp-gesture {
+  position: absolute;
+  left: 50%;
+  top: 38%;
+  z-index: 30;
+  transform: translate(-50%, -50%);
+  padding: 12px 18px;
+  border-radius: 14px;
+  background: rgba(0, 0, 0, 0.62);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #fff;
+  pointer-events: none;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}
+.sxp-gesture-time {
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.7);
+}
+.sxp-gesture-time b {
+  font-size: 24px;
+  color: #fff;
+}
+.sxp-gesture-delta {
+  margin-top: 4px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  color: var(--sxp-a2);
+}
+.sxp-gesture-level {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 200px;
+  font-size: 13px;
+}
+.sxp-gesture-bar {
+  flex: 1;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.22);
+  overflow: hidden;
+}
+.sxp-gesture-bar i {
+  display: block;
+  height: 100%;
+  background: var(--sxp-grad);
+}

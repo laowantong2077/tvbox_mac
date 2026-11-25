@@ -1,0 +1,288 @@
+/* ================= 随心看 播放器：舞台 / 控制栏 / 进度条 / 浮层 ================= */
+.sxp {
+  --sxp-a1: #ff5470;
+  --sxp-a2: #ff7a59;
+  --sxp-grad: linear-gradient(135deg, var(--sxp-a1), var(--sxp-a2));
+  --sxp-glass: rgba(22, 22, 28, 0.72);
+  --sxp-line: rgba(255, 255, 255, 0.1);
+  --sxp-text: rgba(255, 255, 255, 0.92);
+  --sxp-dim: rgba(255, 255, 255, 0.55);
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: #000;
+  color: var(--sxp-text);
+  overflow: hidden;
+  user-select: none;
+  font-family: var(--font, -apple-system, BlinkMacSystemFont, 'PingFang SC', sans-serif);
+  animation: sxp-in 0.28s ease;
+}
+.sxp.idle,
+.sxp.idle * {
+  cursor: none !important;
+}
+.sxp button {
+  font: inherit;
+  color: inherit;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+@keyframes sxp-in {
+  from { opacity: 0; transform: scale(0.985); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes sxp-fade {
+  from { opacity: 0; transform: translate(-50%, 6px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
+@keyframes sxp-pop {
+  from { opacity: 0; transform: translateY(8px) scale(0.98); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes sxp-spin { to { transform: rotate(360deg); } }
+
+/* ---------- 舞台 ---------- */
+.sxp-stage { position: absolute; inset: 0; overflow: hidden; }
+.sxp-video {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  background: #000;
+  transition: transform 0.25s ease, width 0.25s ease, height 0.25s ease, filter 0.2s;
+}
+.sxp-dm-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  transition: opacity 0.25s;
+}
+.sxp-dm-layer.off { opacity: 0; }
+.sxp-sub-layer {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 86%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15em;
+  pointer-events: none;
+  text-align: center;
+  line-height: 1.35;
+  font-weight: 600;
+  z-index: 2;
+  transition: bottom 0.3s ease, transform 0.3s ease;
+}
+.sxp:not(.idle) .sxp-sub-layer { transform: translate(-50%, -72px); }
+.sxp-sub-line { padding: 0.05em 0.4em; border-radius: 0.2em; white-space: pre-wrap; }
+.sxp-sub-line.bg-shadow {
+  text-shadow: 0 0 2px #000, 0 0 2px #000, 1px 1px 2px #000, -1px -1px 2px #000, 0 2px 6px rgba(0, 0, 0, 0.6);
+}
+.sxp-sub-line.bg-box { background: rgba(0, 0, 0, 0.58); }
+.sxp-sub-line.bg-none { text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5); }
+
+/* ---------- 顶部栏 ---------- */
+.sxp-top,
+.sxp-bottom {
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.sxp-top {
+  top: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 22px 40px;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.35) 55%, transparent);
+  -webkit-app-region: drag;
+}
+.sxp-top > * { -webkit-app-region: no-drag; }
+.sxp-top.hide { opacity: 0; transform: translateY(-12px); pointer-events: none; }
+/* 桌面 App 窗口：左侧让出 macOS 红绿灯（关闭/最小化/缩放）区域；系统全屏时红绿灯隐藏，恢复原边距 */
+html.is-desktop .sxp-top { padding-left: 92px; padding-top: 10px; }
+html.is-desktop :fullscreen .sxp-top,
+html.is-desktop .sxp-top:fullscreen { padding-left: 22px; padding-top: 16px; }
+.sxp-titles { flex: 1; min-width: 0; padding-left: 4px; }
+.sxp-title {
+  font-size: 17px;
+  font-weight: 650;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+}
+.sxp-subtitle { font-size: 12.5px; color: var(--sxp-dim); margin-top: 3px; }
+.sxp-top-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 32px;
+  padding: 0 14px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(12px);
+  font-size: 13px;
+  transition: background 0.2s;
+}
+.sxp-top-btn:hover { background: rgba(255, 255, 255, 0.18) !important; }
+.sxp-top-btn.active { background: var(--sxp-grad) !important; }
+
+/* ---------- 底部控制栏 ---------- */
+.sxp-bottom {
+  bottom: 0;
+  padding: 60px 20px 12px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.82), rgba(0, 0, 0, 0.42) 55%, transparent);
+}
+.sxp-bottom.hide { opacity: 0; transform: translateY(14px); pointer-events: none; }
+.sxp-ctrl-row { display: flex; align-items: center; gap: 4px; height: 44px; }
+.sxp-spacer { flex: 1; }
+.sxp-cbtn {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  color: rgba(255, 255, 255, 0.86) !important;
+  transition: background 0.18s, color 0.18s, transform 0.18s;
+  flex-shrink: 0;
+}
+.sxp-cbtn:hover { background: rgba(255, 255, 255, 0.12) !important; color: #fff !important; transform: translateY(-1px); }
+.sxp-cbtn:active { transform: scale(0.92); }
+.sxp-cbtn.active { color: var(--sxp-a2) !important; }
+.sxp-cbtn[data-tip]:hover::after {
+  content: attr(data-tip);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 4px 9px;
+  border-radius: 6px;
+  background: rgba(20, 20, 26, 0.92);
+  font-size: 12px;
+  white-space: nowrap;
+  color: #fff;
+  pointer-events: none;
+  animation: sxp-fade 0.15s ease;
+}
+.sxp-top .sxp-cbtn[data-tip]:hover::after { bottom: auto; top: calc(100% + 8px); }
+.sxp-play {
+  width: 44px;
+  height: 44px;
+  margin: 0 2px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.14) !important;
+  backdrop-filter: blur(10px);
+  transition: transform 0.18s, background 0.2s, box-shadow 0.2s;
+}
+.sxp-play:hover { background: var(--sxp-grad) !important; box-shadow: 0 6px 20px rgba(255, 84, 112, 0.45); transform: scale(1.06); }
+.sxp-time { font-size: 13px; font-variant-numeric: tabular-nums; margin: 0 10px 0 6px; white-space: nowrap; }
+.sxp-time span { color: var(--sxp-dim); }
+.sxp-tbtn {
+  height: 30px;
+  padding: 0 11px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 550;
+  white-space: nowrap;
+  color: rgba(255, 255, 255, 0.86) !important;
+  transition: background 0.18s;
+}
+.sxp-tbtn:hover { background: rgba(255, 255, 255, 0.12) !important; }
+.sxp-tbtn.active { background: rgba(255, 84, 112, 0.2) !important; color: #fff !important; }
+
+/* 音量 */
+.sxp-volume { display: flex; align-items: center; }
+.sxp-volume-slider {
+  width: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: width 0.25s ease;
+}
+.sxp-volume:hover .sxp-volume-slider { width: 136px; }
+.sxp-volume-slider input { width: 88px; }
+.sxp-volume-slider span { font-size: 12px; color: var(--sxp-dim); width: 38px; font-variant-numeric: tabular-nums; }
+.sxp-volume-slider span.boost { color: var(--sxp-a2); font-weight: 600; }
+
+/* 通用 range 滑块 */
+.sxp input[type='range'] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--sxp-a1), var(--sxp-a2)) 0 / var(--p, 0%) 100% no-repeat, rgba(255, 255, 255, 0.18);
+  outline: none;
+  cursor: pointer;
+}
+.sxp input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(255, 84, 112, 0.35), 0 2px 6px rgba(0, 0, 0, 0.4);
+  transition: transform 0.15s;
+}
+.sxp input[type='range']:hover::-webkit-slider-thumb { transform: scale(1.2); }
+
+/* ---------- 进度条 ---------- */
+.sxp-progress { position: relative; height: 18px; display: flex; align-items: center; cursor: pointer; margin: 0 2px 2px; }
+.sxp-progress-track {
+  position: relative;
+  width: 100%;
+  height: 4px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.2);
+  overflow: hidden;
+  transition: height 0.18s ease;
+}
+.sxp-progress:hover .sxp-progress-track,
+.sxp-progress.dragging .sxp-progress-track { height: 7px; }
+.sxp-progress-buf,
+.sxp-progress-hover,
+.sxp-progress-played { position: absolute; top: 0; bottom: 0; left: 0; }
+.sxp-progress-buf { background: rgba(255, 255, 255, 0.32); }
+.sxp-progress-hover { background: rgba(255, 255, 255, 0.22); }
+.sxp-progress-played { background: var(--sxp-grad); box-shadow: 0 0 10px rgba(255, 84, 112, 0.6); }
+.sxp-progress-mark { position: absolute; top: 0; bottom: 0; width: 3px; margin-left: -1px; background: #ffd302; opacity: 0.9; }
+.sxp-progress-thumb {
+  position: absolute;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  margin: -7px 0 0 -7px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 0 4px rgba(255, 84, 112, 0.4), 0 2px 8px rgba(0, 0, 0, 0.5);
+  transform: scale(0);
+  transition: transform 0.18s ease;
+  pointer-events: none;
+}
+.sxp-progress:hover .sxp-progress-thumb { transform: scale(1); }
+.sxp-progress.dragging .sxp-progress-thumb { transform: scale(1.3); }
+.sxp-progress-tip {
+  position: absolute;
+  bottom: 22px;
+  transform: translateX(-50%);
+  padding: 4px 9px;
+  border-radius: 6px;
+  background: rgba(20, 20, 26, 0.9);
+  border: 1px solid var(--sxp-line);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  pointer-events: none;
+  white-space: nowrap;
+}

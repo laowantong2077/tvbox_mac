@@ -1,0 +1,36 @@
+{
+  "name": "sui-xin-kan",
+  "productName": "随心看",
+  "version": "1.0.0",
+  "description": "随心看 - macOS 影视客户端（TVBox 源：搜索 / 播放 / 添加源）",
+  "author": "随心看",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/laowantong2077/tvbox_mac.git"
+  },
+  "homepage": "https://github.com/laowantong2077/tvbox_mac",
+  "bugs": {
+    "url": "https://github.com/laowantong2077/tvbox_mac/issues"
+  },
+  "scripts": {
+    "dev:web": "vite",
+    "build": "vite build",
+    "tauri": "tauri",
+    "tauri:build": "tauri build",
+    "core:dev": "cargo run -p sxk_core --bin sxk-server"
+  },
+  "dependencies": {
+    "hls.js": "^1.5.13"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2.12.6",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "typescript": "^5.5.4",
+    "vite": "^5.4.2"
+  }
+}
