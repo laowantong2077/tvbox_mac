@@ -6,7 +6,7 @@ import { MODE_META, NET_EVENT, networkApi, type NetMode, type SettingsResp } fro
 import { Icon } from '../components/Icon';
 import { Logo } from '../components/Logo';
 
-const APP_VERSION = 'v1.0.0';
+const APP_VERSION = 'v1.0.1';
 const LOGO_SIZE = 52;
 
 interface Entry {

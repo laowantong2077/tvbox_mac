@@ -83,7 +83,7 @@ export function Sidebar() {
             {sites.length} 个可用站点{demoSite ? '（含演示）' : ''}
           </div>
         </div>
-        <div className="sidebar-ver">随心看 v1.0.0</div>
+        <div className="sidebar-ver">随心看 v1.0.1</div>
       </div>
     </aside>
   );

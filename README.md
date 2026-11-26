@@ -7,7 +7,7 @@
   <a href="https://github.com/laowantong2077/tvbox_mac/releases"><img alt="Download" src="https://img.shields.io/badge/download-Releases-brightgreen.svg"></a>
   <img alt="Platform: macOS" src="https://img.shields.io/badge/platform-macOS-black.svg">
   <img alt="Tauri 2" src="https://img.shields.io/badge/Tauri-2-24C8DB.svg">
-  <img alt="Version" src="https://img.shields.io/badge/version-1.0.0-orange.svg">
+  <img alt="Version" src="https://img.shields.io/badge/version-1.0.1-orange.svg">
   <a href="https://linux.do" alt="LINUX DO"><img alt="LINUX DO" src="https://img.shields.io/badge/LINUX-DO-FFB003.svg?logo=data:image/svg%2bxml;base64,DQo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiPjxwYXRoIGQ9Ik00Ni44Mi0uMDU1aDYuMjVxMjMuOTY5IDIuMDYyIDM4IDIxLjQyNmM1LjI1OCA3LjY3NiA4LjIxNSAxNi4xNTYgOC44NzUgMjUuNDV2Ni4yNXEtMi4wNjQgMjMuOTY4LTIxLjQzIDM4LTExLjUxMiA3Ljg4NS0yNS40NDUgOC44NzRoLTYuMjVxLTIzLjk3LTIuMDY0LTM4LjAwNC0yMS40M1EuOTcxIDY3LjA1Ni0uMDU0IDUzLjE4di02LjQ3M0MxLjM2MiAzMC43ODEgOC41MDMgMTguMTQ4IDIxLjM3IDguODE3IDI5LjA0NyAzLjU2MiAzNy41MjcuNjA0IDQ2LjgyMS0uMDU2IiBzdHlsZT0ic3Ryb2tlOm5vbmU7ZmlsbC1ydWxlOmV2ZW5vZGQ7ZmlsbDojZWNlY2VjO2ZpbGwtb3BhY2l0eToxIi8+PHBhdGggZD0iTTQ3LjI2NiAyLjk1N3EyMi41My0uNjUgMzcuNzc3IDE1LjczOGE0OS43IDQ5LjcgMCAwIDEgNi44NjcgMTAuMTU3cS00MS45NjQuMjIyLTgzLjkzIDAgOS43NS0xOC42MTYgMzAuMDI0LTI0LjM4N2E2MSA2MSAwIDAgMSA5LjI2Mi0xLjUwOCIgc3R5bGU9InN0cm9rZTpub25lO2ZpbGwtcnVsZTpldmVub2RkO2ZpbGw6IzE5MTkxOTtmaWxsLW9wYWNpdHk6MSIvPjxwYXRoIGQ9Ik03Ljk4IDcwLjkyNmMyNy45NzctLjAzNSA1NS45NTQgMCA4My45My4xMTNRODMuNDI2IDg3LjQ3MyA2Ni4xMyA5NC4wODZxLTE4LjgxIDYuNTQ0LTM2LjgzMi0xLjg5OC0xNC4yMDMtNy4wOS0yMS4zMTctMjEuMjYyIiBzdHlsZT0ic3Ryb2tlOm5vbmU7ZmlsbC1ydWxlOmV2ZW5vZGQ7ZmlsbDojZjlhZjAwO2ZpbGwtb3BhY2l0eToxIi8+PC9zdmc+"></a>
 </p>
 
@@ -39,10 +39,10 @@
 
 | 平台 | 产物 | 说明 |
 | --- | --- | --- |
-| macOS (Apple Silicon) | `suixinkan_1.0.0_aarch64.dmg` | ad-hoc 签名，macOS 11+，Apple 芯片 |
-| Android (arm64) | `suixinkan_1.0.0_aarch64.apk` | 需允许「安装未知来源应用」 |
+| macOS (Apple Silicon) | [`suixinkan_1.0.1_aarch64.dmg`](https://github.com/laowantong2077/tvbox_mac/releases/download/v1.0.1/suixinkan_1.0.1_aarch64.dmg) | 播放恢复修复版；ad-hoc 签名，macOS 11+，Apple 芯片 |
+| Android (arm64) | [`suixinkan_1.0.0_aarch64.apk`](https://github.com/laowantong2077/tvbox_mac/releases/download/v1.0.0/suixinkan_1.0.0_aarch64.apk) | Android 未随本次 macOS 修复更新，需允许「安装未知来源应用」 |
 
-**macOS 安装**：打开 `suixinkan_1.0.0_aarch64.dmg`，把「随心看」拖进「应用程序」。首次打开若被系统拦截：在「访达」里右键 App →「打开」；或执行：
+**macOS 安装**：打开 `suixinkan_1.0.1_aarch64.dmg`，把「随心看」拖进「应用程序」。首次打开若被系统拦截：在「访达」里右键 App →「打开」；或执行：
 
 ```bash
 xattr -dr com.apple.quarantine /Applications/随心看.app
@@ -97,7 +97,7 @@ xattr -dr com.apple.quarantine /Applications/随心看.app
 
 ### 方式一：安装打包好的 App（推荐）
 
-- **macOS**：从 [Releases](https://github.com/laowantong2077/tvbox_mac/releases) 下载 `suixinkan_1.0.0_aarch64.dmg`，打开后把「随心看」拖进「应用程序」。已做 ad-hoc 签名，首次打开若被拦截：「访达 → 右键 App → 打开」，或 `xattr -dr com.apple.quarantine /Applications/随心看.app`。
+- **macOS**：从 [Releases](https://github.com/laowantong2077/tvbox_mac/releases) 下载 `suixinkan_1.0.1_aarch64.dmg`，打开后把「随心看」拖进「应用程序」。已做 ad-hoc 签名，首次打开若被拦截：「访达 → 右键 App → 打开」，或 `xattr -dr com.apple.quarantine /Applications/随心看.app`。
 
 ### 方式二：源码开发 / 调试
 
@@ -154,7 +154,7 @@ codesign --force --deep --sign - "target/aarch64-apple-darwin/release/bundle/mac
 
 - **出网与 CORS**：前端所有站点请求都发到本地 `/api`，由 Rust 内核发起真实请求，天然规避浏览器跨域与混合内容限制。
 - **流代理**：`/api/stream` 转发 m3u8/ts/mp4，自动改写 m3u8 内的子清单/分片/key 地址继续走代理，支持 Range。
-- **播放**：Chromium / WKWebView 不原生支持 HLS，使用 **hls.js** 解析 m3u8；MP4/直链直接交给 `<video>`。
+- **播放**：macOS / iOS 的 WKWebView 优先使用系统原生 HLS；其他支持 MSE 的浏览器使用 **hls.js**。播放错误按网络与解码分别恢复，重载时保留进度、倍速与暂停状态；MP4/直链交给 `<video>`。
 - **状态**：`state.json` 原子写入；开发态在项目 `data/`，打包后位于
   `~/Library/Application Support/随心看/data/state.json`。
 
@@ -229,6 +229,11 @@ npx tauri ios build --target aarch64-sim --no-sign
 ---
 
 ## 📝 更新日志
+
+### v1.0.1
+
+- 🛠️ macOS 播放稳定性修复：Apple HLS 原生播放优先；分离网络与解码恢复次数；长时间有缓冲但无视频帧时有限重载，并保留进度、倍速与暂停状态。
+- 🧭 更准确区分网络访问、HTTP 403 与不支持的媒体编码错误。
 
 ### v1.0.0
 

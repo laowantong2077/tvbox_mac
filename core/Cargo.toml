@@ -1,6 +1,6 @@
 [package]
 name = "sxk_core"
-version = "1.0.0"
+version = "1.0.1"
 edition = "2021"
 description = "随心看 本地后端（Rust 版）"
 

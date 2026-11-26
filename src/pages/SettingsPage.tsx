@@ -95,7 +95,7 @@ export function SettingsPage() {
           <div className="about-logo">随</div>
           <div className="about-body">
             <div className="about-title">随心看</div>
-            <div className="about-ver">v1.0.0 · 兼容 TVBox 配置协议</div>
+            <div className="about-ver">v1.0.1 · 兼容 TVBox 配置协议</div>
             <div className="about-desc">
               随心看是一款跨平台影视客户端：支持添加多仓/单仓配置源、聚合搜索、分类浏览、HLS 在线播放、
               收藏与观看记录。内置演示源（公共测试流）用于体验播放能力。
